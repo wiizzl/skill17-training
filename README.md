@@ -1,4 +1,4 @@
 # Exercises
 
--   [Advice Generator](./advice-generator)
 -   [Music Animation](./music-animation)
+-   [Advice Generator](./advice-generator)
