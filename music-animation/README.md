@@ -1,4 +1,4 @@
-![](../.github/assets/music-animation.mp4)
+![](../.github/assets/music-animation.gif)
 
 Bleu clair : #00b7c2
 Bleu foncé : #07686f
