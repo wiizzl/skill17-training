@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Otan Convert</title>
+        <style>
+            .area-container {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+
+                & textarea {
+                    width: 100%;
+                    min-height: 60vh;
+                    resize: vertical;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Otan Convert</h1>
+        <div class="area-container">
+            <textarea id="text" placeholder="Contenu texte"></textarea>
+            <textarea id="otan" placeholder="Contenu OTAN" readonly></textarea>
+        </div>
+        <script>
+            const otan = [
+                { letter: "a", code: "Alpha" },
+                { letter: "b", code: "Bravo" },
+                { letter: "c", code: "Charlie" },
+                { letter: "d", code: "Delta" },
+                { letter: "e", code: "Echo" },
+                { letter: "f", code: "Foxtrot" },
+                { letter: "g", code: "Golf" },
+                { letter: "h", code: "Hotel" },
+                { letter: "i", code: "India" },
+                { letter: "j", code: "Juliett" },
+                { letter: "k", code: "Kilo" },
+                { letter: "l", code: "Lima" },
+                { letter: "m", code: "Mike" },
+                { letter: "n", code: "November" },
+                { letter: "o", code: "Oscar" },
+                { letter: "p", code: "Papa" },
+                { letter: "q", code: "Quebec" },
+                { letter: "r", code: "Romeo" },
+                { letter: "s", code: "Sierra" },
+                { letter: "t", code: "Tango" },
+                { letter: "u", code: "Uniform" },
+                { letter: "v", code: "Victor" },
+                { letter: "w", code: "Whiskey" },
+                { letter: "x", code: "X-ray" },
+                { letter: "y", code: "Yankee" },
+                { letter: "z", code: "Zulu" },
+            ];
+
+            const textArea = document.getElementById("text");
+            const otanArea = document.getElementById("otan");
+
+            textArea.addEventListener("input", (e) => {
+                const otanText = e.target.value
+                    .split("")
+                    .map((letter) => {
+                        const lowerLetter = letter.toLowerCase();
+                        const otanLetter = otan.find((o) => o.letter === lowerLetter);
+
+                        return otanLetter ? otanLetter.code : letter;
+                    })
+                    .join(" ");
+
+                otanArea.value = otanText;
+            });
+        </script>
+    </body>
+</html>
