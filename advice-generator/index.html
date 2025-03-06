@@ -1,113 +1,113 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Advice generator</title>
-    </head>
-    <style>
-        @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advice generator</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 
-        * {
-            font-family: "Manrope", serif;
-            font-optical-sizing: auto;
+    * {
+      font-family: "Manrope", serif;
+      font-optical-sizing: auto;
+    }
+
+    body {
+      background-color: #1f2632;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      background-color: #323a49;
+      border-radius: 20px;
+      padding: 3rem;
+      margin-right: 20rem;
+      margin-left: 20rem;
+      text-align: center;
+
+      & p {
+        color: #52ffa8;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+      }
+
+      & h2 {
+        color: #cee3e9;
+        font-size: 30px;
+      }
+
+      & .separator {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        & div {
+          border: 1px solid #4e5d73;
+          width: 100%;
         }
+      }
 
-        body {
-            background-color: #1f2632;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+      & .button {
+        position: absolute;
+        background-color: #52ffa8;
+        cursor: pointer;
+        border: none;
+        padding: 0.8rem;
+        border-radius: 100%;
+        bottom: -25px;
+        transform: translateX(-50%);
+
+        & img {
+          margin-bottom: -5px;
         }
+      }
+    }
 
-        .container {
-            position: relative;
-            background-color: #323a49;
-            border-radius: 20px;
-            padding: 3rem;
-            margin-right: 20rem;
-            margin-left: 20rem;
-            text-align: center;
+    @media screen and (max-width: 1000px) {
+      .container {
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        padding: 2rem;
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <p>Advice #117</p>
+      <h2>"It is easy to sit up and take notice, what's difficult is getting up and taking action."</h2>
+      <div class="separator">
+        <div></div>
+        <img src="./assets/pause.svg" alt="Pause" />
+        <div></div>
+      </div>
+      <span class="button">
+        <img src="./assets/dice.svg" alt="Dé" />
+      </span>
+    </div>
+    <script>
+      const fetchAdvice = async () => {
+        // using random query parameter with date to avoid cache
+        const response = await fetch(`https://api.adviceslip.com/advice?refresh=${new Date().getTime()}`);
 
-            & p {
-                color: #52ffa8;
-                text-transform: uppercase;
-                letter-spacing: 4px;
-            }
+        const data = await response.json();
 
-            & h2 {
-                color: #cee3e9;
-                font-size: 30px;
-            }
+        return data.slip;
+      };
 
-            & .separator {
-                display: flex;
-                gap: 10px;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 1rem;
+      const button = document.querySelector(".button");
 
-                & div {
-                    border: 1px solid #4e5d73;
-                    width: 100%;
-                }
-            }
-
-            & .button {
-                position: absolute;
-                background-color: #52ffa8;
-                cursor: pointer;
-                border: none;
-                padding: 0.8rem;
-                border-radius: 100%;
-                bottom: -25px;
-                transform: translateX(-50%);
-
-                & img {
-                    margin-bottom: -5px;
-                }
-            }
-        }
-
-        @media screen and (max-width: 1000px) {
-            .container {
-                margin-right: 0.5rem;
-                margin-left: 0.5rem;
-                padding: 2rem;
-            }
-        }
-    </style>
-    <body>
-        <div class="container">
-            <p>Advice #117</p>
-            <h2>"It is easy to sit up and take notice, what's difficult is getting up and taking action."</h2>
-            <div class="separator">
-                <div></div>
-                <img src="./assets/pause.svg" alt="Pause" />
-                <div></div>
-            </div>
-            <span class="button">
-                <img src="./assets/dice.svg" alt="Dé" />
-            </span>
-        </div>
-        <script>
-            const fetchAdvice = async () => {
-                // using random query parameter with date to avoid cache
-                const response = await fetch(`https://api.adviceslip.com/advice?refresh=${new Date().getTime()}`);
-
-                const data = await response.json();
-
-                return data.slip;
-            };
-
-            const button = document.querySelector(".button");
-
-            button.addEventListener("click", async () => {
-                const advice = await fetchAdvice();
-                document.querySelector("p").textContent = `Advice #${advice.id}`;
-                document.querySelector("h2").textContent = `"${advice.advice}"`;
-            });
-        </script>
-    </body>
+      button.addEventListener("click", async () => {
+        const advice = await fetchAdvice();
+        document.querySelector("p").textContent = `Advice #${advice.id}`;
+        document.querySelector("h2").textContent = `"${advice.advice}"`;
+      });
+    </script>
+  </body>
 </html>

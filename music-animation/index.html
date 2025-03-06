@@ -1,74 +1,80 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Music animation</title>
-        <style>
-            body {
-                background-color: #000;
-                display: flex;
-                gap: 5px;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music animation</title>
+    <style>
+      body {
+        background-color: #000;
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+      }
 
-            div {
-                height: 100px;
-                width: 8px;
-                border-radius: 10px;
-            }
+      div {
+        width: 10px;
+        border-radius: 10px;
+        background-color: var(--color);
+        animation: music var(--duration) ease-in-out infinite alternate var(--delay);
+      }
 
-            @keyframes full {
-                from {
-                    height: 30px;
-                }
-                to {
-                    height: 100px;
-                }
-            }
+      @keyframes music {
+        from {
+          height: 30px;
+        }
+        to {
+          height: var(--height);
+        }
+      }
 
-            @keyframes half {
-                from {
-                    height: 30px;
-                }
-                to {
-                    height: 50px;
-                }
-            }
+      .one {
+        --color: #00b7c2;
+        --duration: 0.5s;
+        --delay: 0s;
+        --height: 90px;
+      }
 
-            .one {
-                background-color: #00b7c2;
-                animation: full 0.5s ease-in-out infinite alternate 0s;
-            }
-            .two {
-                background-color: #07686f;
-                animation: full 0.5s ease-in-out infinite alternate 0.5s;
-            }
-            .three {
-                background-color: #f0a500;
-                animation: half 0.5s ease-in-out infinite alternate 0.2s;
-            }
-            .four {
-                background-color: #821752;
-                animation: full 0.4s ease-in-out infinite alternate 0.5s;
-            }
-            .five {
-                background-color: #ff414d;
-                animation: full 0.3s ease-in-out infinite alternate 0s;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="one"></div>
-        <div class="two"></div>
-        <div class="three"></div>
-        <div class="four"></div>
-        <div class="five"></div>
-        <div class="four"></div>
-        <div class="three"></div>
-        <div class="two"></div>
-        <div class="one"></div>
-    </body>
+      .two {
+        --color: #07686f;
+        --duration: 0.45s;
+        --delay: 0.5s;
+        --height: 100px;
+      }
+
+      .three {
+        --color: #f0a500;
+        --duration: 0.45s;
+        --delay: 0.5s;
+        --height: 50px;
+      }
+
+      .four {
+        --color: #821752;
+        --duration: 0.4s;
+        --delay: 0.5s;
+        --height: 100px;
+      }
+
+      .five {
+        --color: #ff414d;
+        --duration: 0.35s;
+        --delay: 0s;
+        --height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
+    <div class="four"></div>
+    <div class="five"></div>
+    <div class="four"></div>
+    <div class="three"></div>
+    <div class="two"></div>
+    <div class="one"></div>
+  </body>
 </html>
