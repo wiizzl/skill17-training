@@ -8,93 +8,137 @@
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 
-    * {
-      font-family: "Manrope", serif;
-      font-optical-sizing: auto;
+    :root {
+      --color-background: #1f2632;
+      --color-container: #323a49;
+      --color-primary: #52ffa8;
+      --color-secondary: #cee3e9;
+      --color-border: #4e5d73;
+      --spacing-large: 3rem;
+      --spacing-medium: 2rem;
+      --spacing-small: 0.5rem;
+      --border-radius: 20px;
     }
 
     body {
-      background-color: #1f2632;
+      background-color: var(--color-background);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
+      font-family: "Manrope", serif;
     }
 
     .container {
       position: relative;
-      background-color: #323a49;
-      border-radius: 20px;
-      padding: 3rem;
-      margin-right: 20rem;
-      margin-left: 20rem;
+      background-color: var(--color-container);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-large);
+      margin: 0 var(--spacing-large);
       text-align: center;
+      width: 500px;
+    }
 
-      & p {
-        color: #52ffa8;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-      }
+    .container .title {
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
 
-      & h2 {
-        color: #cee3e9;
-        font-size: 30px;
-      }
+    .container .description {
+      color: var(--color-secondary);
+      font-size: 30px;
+      font-weight: 700;
+    }
 
-      & .separator {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 1rem;
+    .container .description::before {
+      content: open-quote;
+    }
 
-        & div {
-          border: 1px solid #4e5d73;
-          width: 100%;
-        }
-      }
+    .container .description::after {
+      content: close-quote;
+    }
 
-      & .button {
-        position: absolute;
-        background-color: #52ffa8;
-        cursor: pointer;
-        border: none;
-        padding: 0.8rem;
-        border-radius: 100%;
-        bottom: -25px;
-        transform: translateX(-50%);
+    .separator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
 
-        & img {
-          margin-bottom: -5px;
-        }
-      }
+    .separator div {
+      border: 1px solid var(--color-border);
+      width: 100%;
+    }
+
+    .separator svg {
+      width: 150px;
+    }
+
+    .button {
+      position: absolute;
+      background-color: var(--color-primary);
+      cursor: pointer;
+      border: none;
+      padding: 20px;
+      border-radius: 100%;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .button svg {
+      margin-bottom: -5px;
     }
 
     @media screen and (max-width: 1000px) {
       .container {
-        margin-right: 0.5rem;
-        margin-left: 0.5rem;
-        padding: 2rem;
+        margin: 0 var(--spacing-small);
+        padding: var(--spacing-medium);
+      }
+
+      .container .description {
+        font-size: 25px;
       }
     }
   </style>
   <body>
     <div class="container">
-      <p>Advice #117</p>
-      <h2>"It is easy to sit up and take notice, what's difficult is getting up and taking action."</h2>
+      <p class="title">Advice #117</p>
+      <blockquote class="description">
+        It is easy to sit up and take notice, what's difficult is getting up and taking action.
+      </blockquote>
       <div class="separator">
         <div></div>
-        <img src="./assets/pause.svg" alt="Pause" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="none" viewBox="0 0 20 16">
+          <path
+            fill="#CEE3E9"
+            d="M6 3C6 1.34315 4.65685 0 3 0C1.34315 0 0 1.34315 0 3V13C0 14.6569 1.34315 16 3 16C4.65685 16 6 14.6569 6 13V3Z"
+          />
+          <path
+            fill="#CEE3E9"
+            d="M20 3C20 1.34315 18.6569 0 17 0C15.3431 0 14 1.34315 14 3V13C14 14.6569 15.3431 16 17 16C18.6569 16 20 14.6569 20 13V3Z"
+          />
+        </svg>
         <div></div>
       </div>
-      <span class="button">
-        <img src="./assets/dice.svg" alt="Dé" />
-      </span>
+      <button class="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path
+            fill="#1F2632"
+            d="M20 0H4C2.93954 0.0013231 1.92289 0.423175 1.17303 1.17303C0.423175 1.92289 0.0013231 2.93954 0 4L0 20C0.0013231 21.0605 0.423175 22.0771 1.17303 22.827C1.92289 23.5768 2.93954 23.9987 4 24H20C21.0605 23.9987 22.0771 23.5768 22.827 22.827C23.5768 22.0771 23.9987 21.0605 24 20V4C23.9987 2.93954 23.5768 1.92289 22.827 1.17303C22.0771 0.423175 21.0605 0.0013231 20 0V0ZM7.5 18C7.10218 18 6.72064 17.842 6.43934 17.5607C6.15804 17.2794 6 16.8978 6 16.5C6 16.1022 6.15804 15.7206 6.43934 15.4393C6.72064 15.158 7.10218 15 7.5 15C7.89782 15 8.27936 15.158 8.56066 15.4393C8.84196 15.7206 9 16.1022 9 16.5C9 16.8978 8.84196 17.2794 8.56066 17.5607C8.27936 17.842 7.89782 18 7.5 18ZM7.5 9C7.10218 9 6.72064 8.84196 6.43934 8.56066C6.15804 8.27936 6 7.89782 6 7.5C6 7.10218 6.15804 6.72064 6.43934 6.43934C6.72064 6.15804 7.10218 6 7.5 6C7.89782 6 8.27936 6.15804 8.56066 6.43934C8.84196 6.72064 9 7.10218 9 7.5C9 7.89782 8.84196 8.27936 8.56066 8.56066C8.27936 8.84196 7.89782 9 7.5 9ZM12 13.5C11.6022 13.5 11.2206 13.342 10.9393 13.0607C10.658 12.7794 10.5 12.3978 10.5 12C10.5 11.6022 10.658 11.2206 10.9393 10.9393C11.2206 10.658 11.6022 10.5 12 10.5C12.3978 10.5 12.7794 10.658 13.0607 10.9393C13.342 11.2206 13.5 11.6022 13.5 12C13.5 12.3978 13.342 12.7794 13.0607 13.0607C12.7794 13.342 12.3978 13.5 12 13.5ZM16.5 18C16.1022 18 15.7206 17.842 15.4393 17.5607C15.158 17.2794 15 16.8978 15 16.5C15 16.1022 15.158 15.7206 15.4393 15.4393C15.7206 15.158 16.1022 15 16.5 15C16.8978 15 17.2794 15.158 17.5607 15.4393C17.842 15.7206 18 16.1022 18 16.5C18 16.8978 17.842 17.2794 17.5607 17.5607C17.2794 17.842 16.8978 18 16.5 18ZM16.5 9C16.1022 9 15.7206 8.84196 15.4393 8.56066C15.158 8.27936 15 7.89782 15 7.5C15 7.10218 15.158 6.72064 15.4393 6.43934C15.7206 6.15804 16.1022 6 16.5 6C16.8978 6 17.2794 6.15804 17.5607 6.43934C17.842 6.72064 18 7.10218 18 7.5C18 7.89782 17.842 8.27936 17.5607 8.56066C17.2794 8.84196 16.8978 9 16.5 9Z"
+          />
+        </svg>
+      </button>
     </div>
     <script>
       const fetchAdvice = async () => {
-        // using random query parameter with date to avoid cache
-        const response = await fetch(`https://api.adviceslip.com/advice?refresh=${new Date().getTime()}`);
+        const response = await fetch("https://api.adviceslip.com/advice", {
+          cache: "no-store",
+        });
 
         const data = await response.json();
 
@@ -102,11 +146,14 @@
       };
 
       const button = document.querySelector(".button");
+      const title = document.querySelector(".title");
+      const description = document.querySelector(".description");
 
       button.addEventListener("click", async () => {
-        const advice = await fetchAdvice();
-        document.querySelector("p").textContent = `Advice #${advice.id}`;
-        document.querySelector("h2").textContent = `"${advice.advice}"`;
+        const { id, advice } = await fetchAdvice();
+
+        title.textContent = `Advice #${id}`;
+        description.textContent = advice;
       });
     </script>
   </body>
