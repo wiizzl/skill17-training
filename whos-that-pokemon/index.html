@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>Who's that Pokemon?</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <audio src="./assets/whos-that-pokemon.mp3" id="main-audio"></audio>
+
+    <div class="container">
+      <div class="pokemon-container">
+        <img src="./assets/whos-that-pokemon.png" class="whos-that-pokemon" />
+        <!-- <img src="" alt="" class="pokemon-image" width="300" height="300" /> -->
+      </div>
+      <div id="modal-1" class="modal hidden">
+        <div class="modal-body">
+          <h1>Name that Pokemon!</h1>
+          <form class="guess-form" onsubmit="submitGuess(event)">
+            <input class="guess-input" type="text" />
+            <button type="submit" class="guess-submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>
