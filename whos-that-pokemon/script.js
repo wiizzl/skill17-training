@@ -37,9 +37,12 @@ const handleGuess = (data, pokeImg, modal) => async (event) => {
     modal.classList.add("hidden");
     pokeImg.style.filter = "none";
 
+    // Réinitialiser l'input
+    guess.value = "";
+
     // Synthèse vocale du nom du Pokémon
     if ("speechSynthesis" in window) {
-      const utter = new SpeechSynthesisUtterance(data.name);
+      const utter = new SpeechSynthesisUtterance(`It's ${data.name}!`);
       utter.lang = "en-US";
       window.speechSynthesis.speak(utter);
 
