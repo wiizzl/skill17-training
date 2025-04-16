@@ -40,10 +40,11 @@ const handleGuess = (data, pokeImg, modal) => async (event) => {
     // Jouer le cri du pokémon
     if (data.cries && data.cries.latest) {
       const cryAudio = new Audio(data.cries.latest);
+      cryAudio.volume = 0.5;
       await cryAudio.play();
     }
 
-    await sleep(1500);
+    await sleep(2000);
 
     // Relancer une partie
     pokeImg.remove();
