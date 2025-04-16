@@ -37,6 +37,17 @@ const handleGuess = (data, pokeImg, modal) => async (event) => {
     modal.classList.add("hidden");
     pokeImg.style.filter = "none";
 
+    // Synthèse vocale du nom du Pokémon
+    if ("speechSynthesis" in window) {
+      const utter = new SpeechSynthesisUtterance(data.name);
+      utter.lang = "en-US";
+      window.speechSynthesis.speak(utter);
+
+      await new Promise((resolve) => {
+        utter.onend = resolve;
+      });
+    }
+
     // Jouer le cri du pokémon
     if (data.cries && data.cries.latest) {
       const cryAudio = new Audio(data.cries.latest);
@@ -44,7 +55,8 @@ const handleGuess = (data, pokeImg, modal) => async (event) => {
       await cryAudio.play();
     }
 
-    await sleep(2000);
+    // Le onend du cri ne marchait pas donc simple délai
+    await sleep(1800);
 
     // Relancer une partie
     pokeImg.remove();
