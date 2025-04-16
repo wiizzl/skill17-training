@@ -59,7 +59,7 @@ const handleGuess = (data, pokeImg, modal) => async (event) => {
 const startGame = async () => {
   const data = await fetchRandomPokemon("https://pokeapi.co/api/v2/pokemon/" + getRandomInt(1, 500));
 
-  const audioElem = document.querySelector("#main-audio");
+  const audioElem = document.querySelector("#ask-audio");
   await audioElem.play();
 
   const container = document.querySelector(".pokemon-container");
