@@ -33,8 +33,21 @@ const handleGuess = (data, pokeImg, modal) => async (event) => {
   const guessResult = guess.value.trim().toUpperCase();
 
   if (guessResult === data.name.toUpperCase()) {
+    // Afficher l'image sans filtre
     modal.classList.add("hidden");
     pokeImg.style.filter = "none";
+
+    // Jouer le cri du pokémon
+    if (data.cries && data.cries.latest) {
+      const cryAudio = new Audio(data.cries.latest);
+      await cryAudio.play();
+    }
+
+    await sleep(1500);
+
+    // Relancer une partie
+    pokeImg.remove();
+    startGame();
   } else {
     pokeImg.classList.add("shakeError");
     await sleep(350);
@@ -50,7 +63,7 @@ const startGame = async () => {
 
   const container = document.querySelector(".pokemon-container");
   const modal = document.querySelector("#modal-1");
-  const pokeImg = createPokemonImage(data.sprites.front_default);
+  const pokeImg = createPokemonImage(data.sprites.other["official-artwork"].front_default);
   container.appendChild(pokeImg);
 
   window.submitGuess = handleGuess(data, pokeImg, modal);
