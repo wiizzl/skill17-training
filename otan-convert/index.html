@@ -25,50 +25,58 @@
       <textarea id="otan" placeholder="Contenu OTAN" readonly></textarea>
     </div>
     <script>
-      const otan = [
-        { letter: "a", code: "Alpha" },
-        { letter: "b", code: "Bravo" },
-        { letter: "c", code: "Charlie" },
-        { letter: "d", code: "Delta" },
-        { letter: "e", code: "Echo" },
-        { letter: "f", code: "Foxtrot" },
-        { letter: "g", code: "Golf" },
-        { letter: "h", code: "Hotel" },
-        { letter: "i", code: "India" },
-        { letter: "j", code: "Juliett" },
-        { letter: "k", code: "Kilo" },
-        { letter: "l", code: "Lima" },
-        { letter: "m", code: "Mike" },
-        { letter: "n", code: "November" },
-        { letter: "o", code: "Oscar" },
-        { letter: "p", code: "Papa" },
-        { letter: "q", code: "Quebec" },
-        { letter: "r", code: "Romeo" },
-        { letter: "s", code: "Sierra" },
-        { letter: "t", code: "Tango" },
-        { letter: "u", code: "Uniform" },
-        { letter: "v", code: "Victor" },
-        { letter: "w", code: "Whiskey" },
-        { letter: "x", code: "X-ray" },
-        { letter: "y", code: "Yankee" },
-        { letter: "z", code: "Zulu" },
-      ];
+      function toOtan(input) {
+        const otanMap = {
+          A: "Alpha",
+          B: "Bravo",
+          C: "Charlie",
+          D: "Delta",
+          E: "Echo",
+          F: "Foxtrot",
+          G: "Golf",
+          H: "Hotel",
+          I: "India",
+          J: "Juliett",
+          K: "Kilo",
+          L: "Lima",
+          M: "Mike",
+          N: "November",
+          O: "Oscar",
+          P: "Papa",
+          Q: "Quebec",
+          R: "Romeo",
+          S: "Sierra",
+          T: "Tango",
+          U: "Uniform",
+          V: "Victor",
+          W: "Whiskey",
+          X: "X-ray",
+          Y: "Yankee",
+          Z: "Zulu",
+          0: "Zero",
+          1: "One",
+          2: "Two",
+          3: "Three",
+          4: "Four",
+          5: "Five",
+          6: "Six",
+          7: "Seven",
+          8: "Eight",
+          9: "Nine",
+        };
+
+        return input
+          .toUpperCase()
+          .split("")
+          .map((char) => otanMap[char] || char)
+          .join(" ");
+      }
 
       const textArea = document.getElementById("text");
       const otanArea = document.getElementById("otan");
 
       textArea.addEventListener("input", (e) => {
-        const otanText = e.target.value
-          .split("")
-          .map((letter) => {
-            const lowerLetter = letter.toLowerCase();
-            const otanLetter = otan.find((o) => o.letter === lowerLetter);
-
-            return otanLetter ? otanLetter.code : letter;
-          })
-          .join(" ");
-
-        otanArea.value = otanText;
+        otanArea.value = toOtan(e.target.value);
       });
     </script>
   </body>
