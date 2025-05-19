@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./main.css" />
+    <title>Customers Reviews</title>
+  </head>
+  <body>
+    <div class="container mx-auto">
+      <select onchange="loadFile(this.value)">
+        <option>data.json</option>
+        <option>data2.json</option>
+        <option>data3.json</option>
+      </select>
+      <div class="flex items-start justify-between w-full pt-5">
+        <div class="flex flex-col w-2/3" id="reviews"></div>
+        <div class="shadow w-1/5 ml-10 px-4 py-2">
+          <h2>Average rate</h2>
+          <p class="text-3xl font-bold text-green-500">
+            <span id="average"></span><small class="text-sm inline-block ml-1 text-gray-700">/5</small>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadFile("data.json");
+      });
+
+      async function loadFile(file) {
+        const response = await fetch(`./data/${file}`);
+        handleData(await response.json());
+      }
+
+      function handleData(data) {
+        const reviewsContainer = document.getElementById("reviews");
+        reviewsContainer.innerHTML = "";
+
+        const averageSpan = document.getElementById("average");
+
+        let averageRating = 0;
+
+        const filteredReviews = data.filter((review) => review.published);
+
+        filteredReviews
+          .sort((a, b) => new Date(a.date) - new Date(b.date))
+          .forEach((review) => {
+            averageRating += review.rating;
+
+            const reviewElement = document.createElement("div");
+            reviewElement.innerHTML = `
+                <div class="user-review-container mt-0">
+                  <article>
+                    <h3>
+                      ${review.author}
+                      ${
+                        review.certified
+                          ? `<span class="./assets/certified-badge">
+                        <img src="./assets/certified.svg" alt="certified" class="w-4" />
+                      </span>`
+                          : ""
+                      }
+                    </h3>
+                    <div class="stars">
+                      ${Array.from({ length: review.rating })
+                        .map(
+                          (_, index) =>
+                            `<img src="./assets/star.svg" alt="star" class="w-4 ${index > 0 ? "ml-1" : ""}" />`
+                        )
+                        .join("")}
+                    </div>
+                    <p>${review.content}</p>
+                  </article>
+                </div>
+              `;
+
+            reviewsContainer.appendChild(reviewElement);
+          });
+
+        averageSpan.textContent = (averageRating / filteredReviews.length).toFixed(1);
+      }
+    </script>
+  </body>
+</html>
