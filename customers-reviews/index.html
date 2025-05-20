@@ -10,9 +10,9 @@
   <body>
     <div class="container mx-auto">
       <select onchange="loadFile(this.value)">
-        <option>data.json</option>
-        <option>data2.json</option>
-        <option>data3.json</option>
+        <option value="data.json">data</option>
+        <option value="data2.json">data2</option>
+        <option value="data3.json">data3</option>
       </select>
       <div class="flex items-start justify-between w-full pt-5">
         <div class="flex flex-col w-2/3" id="reviews"></div>
@@ -25,61 +25,64 @@
       </div>
     </div>
     <script>
-      document.addEventListener("DOMContentLoaded", async () => {
-        await loadFile("data.json");
+      document.addEventListener("DOMContentLoaded", () => {
+        loadFile("data.json");
       });
 
       async function loadFile(file) {
         const response = await fetch(`./data/${file}`);
-        handleData(await response.json());
+        const data = await response.json();
+        renderReviews(data);
       }
 
-      function handleData(data) {
+      function renderReviews(data) {
         const reviewsContainer = document.getElementById("reviews");
-        reviewsContainer.innerHTML = "";
-
         const averageSpan = document.getElementById("average");
 
-        let averageRating = 0;
+        reviewsContainer.innerHTML = "";
 
-        const filteredReviews = data.filter((review) => review.published);
+        const publishedReviews = data.filter((review) => review.published);
 
-        filteredReviews
+        let totalRating = 0;
+
+        publishedReviews
           .sort((a, b) => new Date(a.date) - new Date(b.date))
           .forEach((review) => {
-            averageRating += review.rating;
-
-            const reviewElement = document.createElement("div");
-            reviewElement.innerHTML = `
-                <div class="user-review-container mt-0">
-                  <article>
-                    <h3>
-                      ${review.author}
-                      ${
-                        review.certified
-                          ? `<span class="./assets/certified-badge">
-                        <img src="./assets/certified.svg" alt="certified" class="w-4" />
-                      </span>`
-                          : ""
-                      }
-                    </h3>
-                    <div class="stars">
-                      ${Array.from({ length: review.rating })
-                        .map(
-                          (_, index) =>
-                            `<img src="./assets/star.svg" alt="star" class="w-4 ${index > 0 ? "ml-1" : ""}" />`
-                        )
-                        .join("")}
-                    </div>
-                    <p>${review.content}</p>
-                  </article>
-                </div>
-              `;
-
-            reviewsContainer.appendChild(reviewElement);
+            totalRating += review.rating;
+            reviewsContainer.appendChild(createReviewElement(review));
           });
 
-        averageSpan.textContent = (averageRating / filteredReviews.length).toFixed(1);
+        averageSpan.textContent = (totalRating / publishedReviews.length).toFixed(1);
+      }
+
+      function createReviewElement(review) {
+        const container = document.createElement("div");
+
+        container.className = "user-review-container mt-0";
+        container.innerHTML = `
+          <article>
+        <h3>
+          ${review.author}
+          ${
+            review.certified
+              ? `
+            <span class="certified-badge">
+          <img src="./assets/certified.svg" alt="certified" class="w-4" />
+            </span>
+          `
+              : ""
+          }
+        </h3>
+        <div class="stars">
+          ${Array.from({ length: review.rating })
+            .map((_, i) => `<img src="./assets/star.svg" alt="star" class="w-4${i > 0 ? " ml-1" : ""}" />`)
+            .join("")}
+        </div>
+        <p>${review.content}</p>
+          </article>
+        `;
+
+        return container;
       }
     </script>
   </body>
