@@ -46,7 +46,7 @@
         let totalRating = 0;
 
         publishedReviews
-          .sort((a, b) => new Date(a.date) - new Date(b.date))
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
           .forEach((review) => {
             totalRating += review.rating;
             reviewsContainer.appendChild(createReviewElement(review));
